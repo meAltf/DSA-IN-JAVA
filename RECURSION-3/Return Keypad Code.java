@@ -26,30 +26,36 @@ cf
 
 
 ***************************************************************************************************************/
-public class solution {
+package Recursion3;
+
+import java.util.Scanner;
+
+public class returnKeypad {
+	
 
 	// Return a string array that contains all the possible strings
-	public static String[] keypad(int n){
+	public static String[] keypadCombination(int input){
 		// Write your code here
 
-		if (n == 0) {
+		if (input == 0) {
 			
-			String output[] =  "" ;
+			String output[] = new String[1];
+			output[0] = "";
 			return output;
 		}
 
-		String[] smallOutput = keypad(n / 10);
-		String[] options = keymap(n % 10);
+		String[] smallOutput = keypadCombination(input/10);
+		int lastDigit = input%10;
 
-		String output[] = new String[smallOutput.length * options.length];
+		String lastDigitOptions = getOptions(lastDigit);
+		String[] output = new String[smallOutput.length * lastDigitOptions.length()];
 
 		int k = 0;
 		for (int i = 0; i < smallOutput.length; i++) {
 
-			
-			for (int j = 0; j < options.length; j++) {
+			for (int j = 0; j < lastDigitOptions.length(); j++) {
 
-				output[k] = smallOutput[i] + options[j];
+				output[k] = smallOutput[i] + lastDigitOptions.charAt(j);
 				k++;
 			}
 		}
@@ -58,52 +64,58 @@ public class solution {
 
 	}
 
-	private static String[] keymap(int n){
-        if (n==0 || n==1){
-            String ans[] = {""};
-            return ans;
-        }
-        
-        else if (n==2){
-            String ans[] = {"a","b","c"};
-            return ans;
-        }
-        
-        else if (n==3){
-            String ans[] = {"d","e","f"};
-            return ans;
-        }
-        
-        else if(n==4){
-            String ans[] = {"g","h","i"};
-            return ans;
-        }
-        
-        else if(n==5){
-            String ans[] = {"j","k","l"};
-            return ans;
-        }
-        
-        else if(n==6){
-            String ans[] = {"m","n","o"};
-            return ans;
-        }
-        
-        else if(n==7){
-            String ans[] = {"p","q","r","s"};
-            return ans;
-        }
-        
-        else if(n==8){
-            String ans[] = {"t","u","v"};
-            return ans;
-        }
-        
-        else if(n==9){
-            String ans[] = {"w","x","y","z"};
-            return ans;
-        } 
-        return null;
-    }
+	 private static String getOptions(int lastDigit) {
+			
+			if( lastDigit == 2) {
+				return "abc";
+			}
+			
+			if(lastDigit  == 3) {
+				return "def";
+			}
+			
+			if(lastDigit == 4) {
+				return "ghi";
+			}
+			
+			if(lastDigit == 7) {
+				return "pqrs";
+			}
+	                if( lastDigit== 5) {
+				return "jkl";
+			}
+			
+			if(lastDigit == 6) {
+				return "mno";
+			}
+			
+			if(lastDigit== 8) {
+				return "tuv";
+			}
+			
+			if(lastDigit == 9) {
+				return "wxyz";
+			}
+
+			return "";
+		}
+
+  public static void main(String[] args) {
+	// TODO Auto-generated method stub
 	
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Enter the number");
+	int input = sc.nextInt();
+	
+	String[] output = keypadCombination(input);
+	
+	//for printing keypad Code
+	for(String outputString : output) {
+		System.out.println(outputString);
+	}
+	
+  }
+
 }
+
+
